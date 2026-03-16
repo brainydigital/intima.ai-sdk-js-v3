@@ -1,0 +1,13 @@
+export const Acao = {
+  TIPO_INFORMACAO: 0,
+  TIPO_COPIA: 1,
+  TIPO_INTIMACAO: 2,
+  TIPO_ESCUTA: 3,
+  TIPO_PROTOCOLO: 4,
+  TIPO_PROTOCOLO_HABILITACAO: 5,
+  TIPO_ANDAMENTO: 6,
+  TIPO_CONSULTA: 7,
+  TIPO_PRE_CONSULTA: 8,
+} as const;
+
+export type TipoAcao = (typeof Acao)[keyof typeof Acao];

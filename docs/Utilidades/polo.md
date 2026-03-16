@@ -1,0 +1,22 @@
+# Utilidade: **Polo**
+
+Você pode utilizar a constante de polo p/ melhor legibilidade do seu código, por exemplo:
+
+```typescript
+// ES Modules ou TypeScript:
+import { Polo } from "@brainydigital/intima.ai-sdk-typescript";
+
+// CommonJS (Node.js tradicional):
+const { Polo } = require("@brainydigital/intima.ai-sdk-typescript");
+
+const polo = Polo.ATIVO;
+```
+
+Abaixo, está a tabela com todos os valores possíveis para a constante de polo.
+
+| Constante | Valor |
+| --------- | ----- |
+| ATIVO     | 0     |
+| PASSIVO   | 1     |
+
+[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
