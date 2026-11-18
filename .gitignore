@@ -1,0 +1,6 @@
+.idea
+git_push.sh
+node_modules
+.DS_Store
+docs/.DS_Store
+dist

@@ -16,4 +16,4 @@ const peticao = new Peticao(
 );
 ```
 
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

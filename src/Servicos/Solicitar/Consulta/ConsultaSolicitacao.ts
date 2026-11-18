@@ -7,18 +7,16 @@ export class ConsultaSolicitacao implements ServicoSolicitacao {
   private numeroDoProcesso: string;
   private nomeParte: string;
   private nomeRepresentante: string;
-  private oab: Oab[];
+  private oab: Oab | Oab[] | null;
   private numeroDocumentoParte: string;
-  private token: string;
 
   constructor(
     idAutenticador: string | number,
     numeroDoProcesso: string = "",
     nomeParte: string = "",
     nomeRepresentante: string = "",
-    oab: Oab[] = [],
-    numeroDocumentoParte: string = "",
-    token: string = ""
+    oab: Oab | Oab[] | null = null,
+    numeroDocumentoParte: string = ""
   ) {
     this.idAutenticador = idAutenticador;
     this.numeroDoProcesso = numeroDoProcesso;
@@ -26,7 +24,6 @@ export class ConsultaSolicitacao implements ServicoSolicitacao {
     this.nomeRepresentante = nomeRepresentante;
     this.oab = oab;
     this.numeroDocumentoParte = numeroDocumentoParte;
-    this.token = token;
   }
 
   getEndpoint(): string {
@@ -40,9 +37,8 @@ export class ConsultaSolicitacao implements ServicoSolicitacao {
         numero_processo: this.numeroDoProcesso,
         nome_parte: this.nomeParte,
         nome_representante: this.nomeRepresentante,
-        oab: this.oab,
+        oab: Array.isArray(this.oab) ? this.oab[0] : this.oab,
         numero_documento_parte: this.numeroDocumentoParte,
-        token: this.token,
       },
     };
   }

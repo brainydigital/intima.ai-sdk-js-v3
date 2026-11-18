@@ -13,19 +13,22 @@ export class ProtocoloTjrjSegundoPassoSolicitacao
   private partesVinculadas: ParteVinculada[];
   private peticao: Peticao;
   private documentos: Documento[];
+  private idCategoria: string | number | null;
 
   constructor(
     id: string | number,
     idClasse: string | number,
     partesVinculadas: ParteVinculada[],
     peticao: Peticao,
-    documentos: Documento[] = []
+    documentos: Documento[] = [],
+    idCategoria: string | number | null = null
   ) {
     this.id = id;
     this.idClasse = idClasse;
     this.partesVinculadas = partesVinculadas;
     this.peticao = peticao;
     this.documentos = documentos;
+    this.idCategoria = idCategoria;
   }
 
   getEndpoint(): string {
@@ -35,6 +38,7 @@ export class ProtocoloTjrjSegundoPassoSolicitacao
   getRequest(): Record<string, any> {
     const parametrosParaMultiForm: Record<string, any> = {
       classe_id: this.idClasse,
+      categoria_id: this.idCategoria,
     };
 
     Helpers.definirPartes(this.partesVinculadas, parametrosParaMultiForm);
@@ -42,10 +46,6 @@ export class ProtocoloTjrjSegundoPassoSolicitacao
     Helpers.definirDocumentos(this.documentos, parametrosParaMultiForm);
 
     return {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "Intimai_SDK/3.0.0",
-      },
       multipart: Helpers.definirMultiPart(parametrosParaMultiForm),
     };
   }

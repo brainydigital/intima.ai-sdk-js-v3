@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as path from "path";
+import { lerArquivo } from "./lerArquivo";
 
 export class Certificado {
   private caminhoDoCertificado: string;
@@ -37,8 +37,7 @@ export class Certificado {
     return [
       {
         name: "arquivo",
-        contents: fs.createReadStream(this.caminhoDoCertificado),
-        filename: path.basename(this.caminhoDoCertificado),
+        contents: lerArquivo(this.caminhoDoCertificado),
       },
       {
         name: "senha",

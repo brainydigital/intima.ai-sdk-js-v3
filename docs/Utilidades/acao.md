@@ -26,4 +26,4 @@ Abaixo, está a tabela com todos os valores possíveis para a constante de açã
 | TIPO_CONSULTA              | 7     |
 | TIPO_PRE_CONSULTA          | 8     |
 
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

@@ -1,6 +1,6 @@
 {
   "name": "@brainydigital/intima.ai-sdk-typescript",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Implementação da API do Intima.ai em forma de SDK Client para JavaScript/TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc --noEmit && node --require ts-node/register --test tests/*.test.ts",
     "build": "tsc",
     "watch": "tsc --watch"
   },
@@ -20,8 +20,23 @@
     "typescript",
     "sdk"
   ],
-  "author": "Intimai",
+  "author": {
+    "name": "BrainyDigital",
+    "email": "contato@brainydigital.com.br",
+    "url": "https://intima.ai"
+  },
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "homepage": "https://github.com/brainydigital/intima.ai-sdk-js-v3#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brainydigital/intima.ai-sdk-js-v3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brainydigital/intima.ai-sdk-js-v3/issues"
+  },
   "devDependencies": {
     "@types/node": "^22.15.18",
     "ts-node": "^10.9.2",

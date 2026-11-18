@@ -3,12 +3,12 @@ import { Endpoint } from "../../Endpoint";
 
 export class EscutaAtualizacao implements ServicoAtualizacao {
   private id: string | number;
-  private diasDeCaptura: string | string[];
+  private diasDeCaptura: string | Array<string | number>;
   private horariosDeCaptura: string | string[];
 
   constructor(
     id: string | number,
-    diasDeCaptura: string | string[],
+    diasDeCaptura: string | Array<string | number>,
     horariosDeCaptura: string | string[]
   ) {
     this.id = id;
@@ -22,8 +22,10 @@ export class EscutaAtualizacao implements ServicoAtualizacao {
 
   getRequest(): Record<string, any> {
     return {
-      dias_de_captura: this.diasDeCaptura,
-      horarios_de_captura: this.horariosDeCaptura,
+      form_params: {
+        dias_de_captura: this.diasDeCaptura,
+        horarios_de_captura: this.horariosDeCaptura,
+      },
     };
   }
 }

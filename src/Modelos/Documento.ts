@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { lerArquivo } from "./lerArquivo";
 
 export class Documento {
   private caminho: string;
@@ -60,7 +61,7 @@ export class Documento {
     const index = this.ordem - 1;
 
     return {
-      [`documentos[${index}][arquivo]`]: this.getArquivo(),
+      [`documentos[${index}][arquivo]`]: lerArquivo(this.caminho),
       [`documentos[${index}][tipo_documento]`]: this.tipo,
       [`documentos[${index}][descricao_documento]`]: this.descricao,
       [`documentos[${index}][ordem]`]: this.ordem,

@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as path from "path";
+import { lerArquivo } from "./lerArquivo";
 
 export class Peticao {
   private caminho: string;
@@ -26,7 +26,7 @@ export class Peticao {
 
   emArray(): Record<string, any> {
     return {
-      "peticao[arquivo]": this.getArquivo(),
+      "peticao[arquivo]": lerArquivo(this.caminho),
       "peticao[tipo_documento]": this.tipo,
       "peticao[descricao_documento]": this.descricao,
     };

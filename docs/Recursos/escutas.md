@@ -37,7 +37,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -71,7 +71,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -108,7 +108,7 @@ try {
   const diasDeCaptura = [Dia.SEGUNDA, Dia.SEXTA];
 
   // Horários no qual a captura será realizada
-  const horariosDeCaptura = [Horario.DEZ_HORAS, Horario.DEZOITO_HORAS];
+  const horariosDeCaptura = [Horario.DEZ_HORAS, Horario.DEZOITO_HORAS]; // No máximo 3
 
   const escuta = new EscutaCadastro(
     idAutenticador,
@@ -122,7 +122,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -155,7 +155,7 @@ try {
   const diasDeCaptura = [Dia.SEGUNDA, Dia.SEXTA];
 
   // Horários no qual a captura será realizada
-  const horariosDeCaptura = [Horario.DEZ_HORAS, Horario.DEZOITO_HORAS];
+  const horariosDeCaptura = [Horario.DEZ_HORAS, Horario.DEZOITO_HORAS]; // No máximo 3
 
   const escuta = new EscutaAtualizacao(
     idEscuta,
@@ -168,7 +168,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -202,7 +202,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -210,5 +210,5 @@ try {
 ```
 
 [Voltar ao topo](#recurso-escutas)  
-[Voltar a lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar a lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

@@ -37,10 +37,6 @@ export class ProtocoloEprocSegundoPassoSolicitacao
     Helpers.definirDocumentos(this.documentos, parametrosParaMultiForm);
 
     return {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "Intimai_SDK/3.0.0",
-      },
       multipart: Helpers.definirMultiPart(parametrosParaMultiForm),
     };
   }

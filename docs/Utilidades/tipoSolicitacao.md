@@ -18,4 +18,4 @@ Abaixo, está a tabela com todos os valores possíveis para a constante de tipo 
 | ------------------- | ----- |
 | HABILITACAO_SIMPLES | 0     |
 
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

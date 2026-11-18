@@ -2,6 +2,10 @@
 
 > Os Autenticadores do `Intima.ai` são utilizados para ter acesso aos tribunais.
 > Você pode criar diversas autenticações para diversos tribunais sendo uma autenticação para cada tribunal.
+> No cadastro, `idTribunal` aceita um id, uma lista (`[1, 2]`) ou um texto (`"1,2"`): a API cria uma autenticação para cada tribunal informado.
+>
+> Alguns tribunais exigem autenticação de dois fatores (2FA) no login. Para eles, informe a `secret` (Base32, mínimo de 16 caracteres) no cadastro ou depois, com [Armazenar 2FA](#armazenar-2fa-do-tribunal).
+> Alguns tribunais também exigem um certificado no login por usuário/senha: nesses casos, informe `idCertificado`.
 
 Todas as URIs são relativas a *https://app.intima.ai/api/v3*
 
@@ -35,9 +39,9 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -64,9 +68,9 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -103,9 +107,9 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -128,16 +132,85 @@ try {
   const usuario = 'usuario-novo-valor'; // Opcional se estiver alterando apenas a senha
   const senha = 'senha-nova-valor';     // Opcional se estiver alterando apenas o úsuario
 
-  const autenticador = new AutenticadorRegularAtualizacao(idAutenticador, usuario, senha);
+  const idCertificado = null; // Opcional; obrigatório nos tribunais que exigem certificado no login regular
+
+  const autenticador = new AutenticadorRegularAtualizacao(idAutenticador, usuario, senha, idCertificado);
 
   const resultado = await intimai.servicos.atualizar(autenticador);
 
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
+  }
+}
+```
+
+#### Atualizar Perfil
+
+Exemplo para atualizar a sigla e/ou a descrição do perfil do autenticador. Informe pelo menos um dos dois.
+
+```typescript
+import { Intimai, AutenticadorPerfilAtualizacao, APIRequestException } from "@brainydigital/intima.ai-sdk-typescript";
+
+try {
+  const intimai = new Intimai("api_token");
+
+  const idAutenticador = 1; // ID do autenticador no Intima.ai
+
+  const resultado = await intimai.servicos.atualizar(new AutenticadorPerfilAtualizacao(idAutenticador, "ADV", "Advogado"));
+
+  console.log(resultado);
+} catch (exception) {
+  if (exception instanceof APIRequestException) {
+    console.log(exception.getStatus(), exception.getMensagem());
+  }
+}
+```
+
+### **Situação**
+
+Exemplo para habilitar ou desabilitar um autenticador. Desabilitado, ele não solicita nenhuma ação até ser habilitado de novo. A API responde 422 se o autenticador já estiver na situação pedida.
+
+```typescript
+import { Intimai, AutenticadorHabilitarAtualizacao, AutenticadorDesabilitarAtualizacao, APIRequestException } from "@brainydigital/intima.ai-sdk-typescript";
+
+try {
+  const intimai = new Intimai("api_token");
+
+  const idAutenticador = 1; // ID do autenticador no Intima.ai
+
+  const resultado = await intimai.servicos.atualizar(new AutenticadorHabilitarAtualizacao(idAutenticador));
+  // ou: await intimai.servicos.atualizar(new AutenticadorDesabilitarAtualizacao(idAutenticador));
+
+  console.log(resultado);
+} catch (exception) {
+  if (exception instanceof APIRequestException) {
+    console.log(exception.getStatus(), exception.getMensagem());
+  }
+}
+```
+
+### **Armazenar 2FA do tribunal**
+
+Exemplo para armazenar a `secret` do 2FA do tribunal em um ou mais autenticadores. A `secret` é a chave Base32 (letras A–Z e dígitos 2–7, mínimo de 16 caracteres) mostrada pelo tribunal ao configurar o app autenticador.
+
+```typescript
+import { Intimai, AutenticadorDoisFatoresCadastro, APIRequestException } from "@brainydigital/intima.ai-sdk-typescript";
+
+try {
+  const intimai = new Intimai("api_token");
+
+  const idsAutenticadores = [1, 2]; // Um ID ou uma lista de IDs de autenticadores
+
+  const resultado = await intimai.servicos.cadastrar(new AutenticadorDoisFatoresCadastro(idsAutenticadores, "JBSWY3DPEHPK3PXP"));
+
+  console.log(resultado);
+} catch (exception) {
+  if (exception instanceof APIRequestException) {
+    console.log(exception.getStatus(), exception.getMensagem());
   }
 }
 ```
@@ -164,16 +237,18 @@ try {
   const usuario = 'usuario-valor'; // Usuário que será utilizado para acesso ao tribunal
   const senha = 'senha-valor';     // Senha que será utilizada para acesso ao tribunal
 
-  const autenticador = new AutenticadorAlterarParaRegularAtualizacao(idAutenticador, usuario, senha);
+  const idCertificado = null; // Opcional; obrigatório nos tribunais que exigem certificado no login regular
+
+  const autenticador = new AutenticadorAlterarParaRegularAtualizacao(idAutenticador, usuario, senha, idCertificado);
 
   const resultado = await intimai.servicos.atualizar(autenticador);
 
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -202,9 +277,9 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -231,16 +306,23 @@ try {
   };
   const idCertificado = 1;
 
-  const autenticador = new AutenticadorCertificadoCadastro(idTribunal, oab, idCertificado);
+  const autenticador = new AutenticadorCertificadoCadastro(
+    idTribunal, // Um ID ou uma lista: [1, 2]
+    oab,
+    idCertificado,
+    null, // usuarioSigla (opcional)
+    null, // usuarioDescricao (opcional)
+    null  // secret: obrigatória se algum tribunal exigir 2FA
+  );
 
   const resultado = await intimai.servicos.cadastrar(autenticador);
 
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -269,10 +351,14 @@ try {
   const senha = 'senha-valor';     // Senha que será utilizada para acesso ao tribunal
 
   const autenticador = new AutenticadorRegularCadastro(
-    idTribunal,
+    idTribunal, // Um ID ou uma lista: [1, 2]
     oab,
     usuario,
-    senha
+    senha,
+    null, // idCertificado: obrigatório nos tribunais que exigem certificado no login regular
+    null, // usuarioSigla (opcional)
+    null, // usuarioDescricao (opcional)
+    null  // secret: obrigatória se algum tribunal exigir 2FA
   );
 
   const resultado = await intimai.servicos.cadastrar(autenticador);
@@ -280,9 +366,9 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -321,7 +407,7 @@ try {
   ];
 
   // Horários no qual a captura será realizada
-  const horariosDeCaptura = [
+  const horariosDeCaptura = [ // No máximo 3
     Horario.DEZ_HORAS,
     Horario.DEZOITO_HORAS
   ];
@@ -342,9 +428,9 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
   }
 }
 ```
@@ -373,13 +459,35 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
-    console.log((exception as Error).getMessage?.?.() ?? (exception as Error).message);
+    console.log((exception as Error).message);
+  }
+}
+```
+
+#### Capturar Agora
+
+Exemplo para pedir uma captura de intimações fora dos horários agendados. A captura do autenticador precisa estar ativa; caso contrário, a API responde 422.
+
+```typescript
+import { Intimai, AutenticadorCapturarIntimacoesSolicitacao, APIRequestException } from "@brainydigital/intima.ai-sdk-typescript";
+
+try {
+  const intimai = new Intimai("api_token");
+
+  const idAutenticador = 1; // ID do autenticador no Intima.ai
+
+  const resultado = await intimai.servicos.solicitar(new AutenticadorCapturarIntimacoesSolicitacao(idAutenticador));
+
+  console.log(resultado);
+} catch (exception) {
+  if (exception instanceof APIRequestException) {
+    console.log(exception.getStatus(), exception.getMensagem());
   }
 }
 ```
 
 [Voltar ao topo](#recurso-autenticacões)  
-[Voltar a lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar a lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

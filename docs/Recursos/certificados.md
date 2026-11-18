@@ -42,7 +42,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -75,7 +75,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -114,7 +114,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -153,7 +153,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -187,7 +187,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -195,5 +195,5 @@ try {
 ```
 
 [Voltar ao topo](#recurso-certificados)  
-[Voltar a lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-php)
+[Voltar a lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

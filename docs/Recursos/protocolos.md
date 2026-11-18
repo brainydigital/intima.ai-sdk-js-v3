@@ -43,7 +43,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -77,7 +77,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -112,14 +112,15 @@ try {
   // Estes tipos estão disponíveis no tribunal em questão, você pode buscar o tribunal e verificar os valores disponíveis.
   const tipoDocumentoMensagemGeral = 1;
 
-  // A petição é necessária para alguns tribunais (TRT por exemplo). Obs: você pode buscar os tipos disponóveis da petição ao buscar o tribunal em que se está protocolando
+  // A petição é obrigatória nos tribunais da Justiça do Trabalho (TRT) e proibida nos demais: fora do TRT, passe null e envie tudo em documentos.
+  // Obs: você pode buscar os tipos disponíveis da petição ao buscar o tribunal em que se está protocolando
   const peticao = new Peticao("caminho/da/peticao", 12, "descricao-peticao");
 
   const documentos = [
     new Documento("caminho/do/documento", 1, 21, "descricao-doc"),
   ];
 
-  // Obs: se o tribunal não precisar da petição basta não enviar
+  // Obs: fora do TRT, use null no lugar de peticao
   const protocolo = new ProtocoloPjeSolicitacao(
     idAutenticador,
     numeroDoProcesso,
@@ -133,7 +134,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -143,6 +144,32 @@ try {
 ### PROJUDI
 
 Protocolos no sistema PROJUDI são realizados em uma única etapa.
+
+Antes de protocolar, busque os tipos de documento mensagem geral disponíveis para o autenticador. A API responde 422 se o autenticador não for do PROJUDI e 404 se o tribunal não tiver nenhum tipo.
+
+```typescript
+import {
+  Intimai,
+  TipoDocumentoMensagemGeralProjudiBusca,
+  APIRequestException,
+} from "@brainydigital/intima.ai-sdk-typescript";
+
+try {
+  const intimai = new Intimai("api_token");
+
+  const idAutenticador = 1; // ID do autenticador no Intima.ai
+
+  const resultado = await intimai.servicos.buscar(new TipoDocumentoMensagemGeralProjudiBusca(idAutenticador));
+
+  console.log(resultado);
+} catch (exception) {
+  if (exception instanceof APIRequestException) {
+    console.log(exception.getStatus(), exception.getMensagem());
+  }
+}
+```
+
+Depois, solicite o protocolo:
 
 ```typescript
 // ES Modules ou TypeScript:
@@ -162,7 +189,7 @@ try {
   const idAutenticador = 1; // ID do autenticador no Intima.ai
   const numeroDoProcesso = "00000000000000000000"; // Número do processo no tribunal
 
-  // Estes tipos estão disponíveis no tribunal em questão, você pode buscar o tribunal e verificar os valores disponíveis.
+  // Um dos tipos devolvidos por TipoDocumentoMensagemGeralProjudiBusca
   const tipoDocumentoMensagemGeral = 1;
 
   const documentos = [
@@ -181,7 +208,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -224,7 +251,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -291,7 +318,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -334,7 +361,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -390,7 +417,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -433,7 +460,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -480,12 +507,16 @@ try {
     new Documento("caminho/do/documento", 1, 21, "descricao-doc"),
   ];
 
+  // Obrigatório quando a classe escolhida tem categorias (veja as classes do protocolo)
+  const idCategoria = null;
+
   const segundaEtapa = new ProtocoloTjrjSegundoPassoSolicitacao(
     idProtocolo,
     idClasse,
     partesVinculadas,
     peticao,
-    documentos
+    documentos,
+    idCategoria
   );
 
   const resultado = await intimai.servicos.solicitar(segundaEtapa);
@@ -493,7 +524,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -501,5 +532,5 @@ try {
 ```
 
 [Voltar ao topo](#recurso-protocolos)  
-[Voltar a lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar a lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

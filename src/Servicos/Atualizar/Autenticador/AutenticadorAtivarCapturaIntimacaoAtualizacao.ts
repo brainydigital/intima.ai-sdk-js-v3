@@ -6,14 +6,14 @@ export class AutenticadorAtivarCapturaIntimacaoAtualizacao
 {
   private id: string | number;
   private abas: string | string[];
-  private diasDeCaptura: string | string[];
+  private diasDeCaptura: string | Array<string | number>;
   private horariosDeCaptura: string | string[];
   private capturarProcuradorias: boolean | number;
 
   constructor(
     id: string | number,
     abas: string | string[],
-    diasDeCaptura: string | string[],
+    diasDeCaptura: string | Array<string | number>,
     horariosDeCaptura: string | string[],
     capturarProcuradorias: boolean | number = false
   ) {
@@ -30,10 +30,12 @@ export class AutenticadorAtivarCapturaIntimacaoAtualizacao
 
   getRequest(): Record<string, any> {
     return {
-      abas: this.abas,
-      dias_de_captura: this.diasDeCaptura,
-      horarios_de_captura: this.horariosDeCaptura,
-      capturar_procuradorias: this.capturarProcuradorias,
+      form_params: {
+        abas: this.abas,
+        dias_de_captura: this.diasDeCaptura,
+        horarios_de_captura: this.horariosDeCaptura,
+        capturar_procuradorias: this.capturarProcuradorias,
+      },
     };
   }
 }

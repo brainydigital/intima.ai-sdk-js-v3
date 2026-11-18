@@ -49,7 +49,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -83,7 +83,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -122,7 +122,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -160,20 +160,21 @@ try {
   // Estes tipos estão disponíveis no enum TipoSolicitacao
   const tipoSolicitacao = TipoSolicitacao.HABILITACAO_SIMPLES;
 
-  // Estes tipos estão disponíveis no enum TipoDeclaracao
+  // Estes tipos estão disponíveis no enum TipoDeclaracao (constantes TRT_* para a Justiça do Trabalho)
   const tipoDeclaracao = TipoDeclaracao.DECLARACAO_SOB_PENA_DE_LEI;
 
   // Estes polos estão disponíveis no enum Polo
   const polo = Polo.ATIVO;
 
-  // Array com as partes. Obs: a parte pode ter participação, verifique no tribunal
-  const partesVinculadas = [new ParteVinculada("nome-parte")];
+  // Partes do polo escolhido: use o "nome" de cada parte em extra.processo_polos (polo_ativo ou polo_passivo)
+  // do protocolo de habilitação. Aceita ParteVinculada ou o nome direto.
+  const partesVinculadas = [new ParteVinculada("nome-parte"), "outra-parte"];
 
   // Estes tipos estão disponíveis no protocolo; você pode buscar o protocolo e verificar os valores disponíveis.
   const tipoDocumentoMensagemGeral = 1;
 
-  const descricao = "Descrição da solicitação";
-  const mensagemGeral = "Mensagem geral do protocolo";
+  const descricao = "Descrição da solicitação"; // Opcional
+  const mensagemGeral = "Mensagem geral do protocolo"; // Opcional
 
   const documentos = [
     new Documento("caminho/do/documento", 1, 21, "descricao-doc"),
@@ -196,7 +197,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -206,5 +207,5 @@ try {
 ---
 
 [Voltar ao topo](#recurso-protocolos-de-habilitação)  
-[Voltar à lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar à lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

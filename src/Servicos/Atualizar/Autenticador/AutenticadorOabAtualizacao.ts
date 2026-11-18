@@ -17,9 +17,11 @@ export class AutenticadorOabAtualizacao implements ServicoAtualizacao {
 
   getRequest(): Record<string, any> {
     return {
-      oab_numero: this.oab.numero,
-      oab_letra: this.oab.letra || "",
-      oab_uf: this.oab.uf,
+      form_params: {
+        oab_numero: this.oab.numero,
+        oab_letra: this.oab.letra || "",
+        oab_uf: this.oab.uf,
+      },
     };
   }
 }

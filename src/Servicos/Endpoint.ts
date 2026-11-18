@@ -57,6 +57,16 @@ export const Endpoint = {
   CLASSES: "/classes",
   EVENTOS: "/eventos",
   TIPOS_DOCUMENTO_MENSAGEM_GERAL: "/tipos-documento-mensagem-geral",
+  CONFIRMAR_CONSULTA: "/confirmar-consulta",
+  CANCELAR_CONSULTA: "/cancelar-consulta",
+  ATUALIZAR_PERFIL: "/atualizar-perfil",
+  CAPTURAR_INTIMACOES: "/capturar-intimacoes",
+  HABILITAR: "/habilitar",
+  DESABILITAR: "/desabilitar",
+  DOIS_FATORES: "/2fa/armazenar",
+  CONSUMO_MENSAL: "/consumo-mensal",
+  CAPTURA_AGENDADA: "/captura-agendada",
+  CODIGO_AJUDA: "/codigo-ajuda",
 } as const;
 
 export type Endpoint = typeof Endpoint;

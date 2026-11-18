@@ -10,6 +10,16 @@ representante`.
 >
 > A `pré-analise de uma consulta` retorna a quantidade de registros encontrados com os
 > termos de busca informados.
+>
+> Ao solicitar uma consulta por perfil, a API faz a pré-análise sozinha. Se houver processos, a
+> consulta para em `StatusAcao.AGUARDANDO_CONFIRMACAO` (13) e só segue depois de confirmada
+> (veja [Confirmar ou cancelar consulta](acoes.md#confirmar-ou-cancelar-consulta)). Sem
+> confirmação em 1 hora, a consulta expira.
+>
+> A OAB vai como objeto: `{ numero: "123", letra: "A", uf: "RJ" }`.
+>
+> No EPROC, informe só um parâmetro de busca: número do processo **ou** documento da parte
+> **ou** OAB. Nome da parte e nome do representante ainda não são aceitos nesse sistema.
 
 Todas as URIs são relativas a *https://app.intima.ai/api/v3*
 
@@ -43,7 +53,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -77,7 +87,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -113,7 +123,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -147,7 +157,7 @@ try {
   console.log(resultado);
 } catch (exception) {
   if (exception instanceof APIRequestException) {
-    console.log(exception.toJson?.());
+    console.log(exception.toJson());
   } else {
     console.log((exception as Error).message);
   }
@@ -155,5 +165,5 @@ try {
 ```
 
 [Voltar ao topo](#recurso-consultas)  
-[Voltar a lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar a lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

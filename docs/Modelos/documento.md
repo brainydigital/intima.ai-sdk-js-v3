@@ -17,4 +17,4 @@ const documento = new Documento(
 );
 ```
 
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

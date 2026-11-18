@@ -74,5 +74,5 @@ try {
 ```
 
 [Voltar ao topo](#recurso-tribunais)  
-[Voltar à lista da API](../../README.md#documentação-para-os-endpoints-da-api)  
-[Voltar para o README](../../README.md#intimaai---sdk-v3-javascripttypescript)
+[Voltar à lista da API](../../README.md#recursos)  
+[Voltar para o README](../../README.md#intimaai--sdk-v3-javascripttypescript)

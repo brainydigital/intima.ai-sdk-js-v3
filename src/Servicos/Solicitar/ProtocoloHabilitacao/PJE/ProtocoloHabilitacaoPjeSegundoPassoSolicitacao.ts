@@ -14,8 +14,10 @@ export class ProtocoloHabilitacaoPjeSegundoPassoSolicitacao
   private tipoSolicitacao: TipoSolicitacaoTipo;
   private tipoDeclaracao: TipoDeclaracaoTipo;
   private polo: PoloTipo;
-  private partesVinculadas: ParteVinculada[];
+  private partesVinculadas: Array<ParteVinculada | string>;
   private tipoDocumentoMensagemGeral: string | number;
+  private descricao: string | null;
+  private mensagemGeral: string | null;
   private documentos: Documento[];
 
   constructor(
@@ -23,8 +25,10 @@ export class ProtocoloHabilitacaoPjeSegundoPassoSolicitacao
     tipoSolicitacao: TipoSolicitacaoTipo,
     tipoDeclaracao: TipoDeclaracaoTipo,
     polo: PoloTipo,
-    partesVinculadas: ParteVinculada[],
+    partesVinculadas: Array<ParteVinculada | string>,
     tipoDocumentoMensagemGeral: string | number,
+    descricao: string | null = null,
+    mensagemGeral: string | null = null,
     documentos: Documento[] = []
   ) {
     this.id = id;
@@ -33,6 +37,8 @@ export class ProtocoloHabilitacaoPjeSegundoPassoSolicitacao
     this.polo = polo;
     this.partesVinculadas = partesVinculadas;
     this.tipoDocumentoMensagemGeral = tipoDocumentoMensagemGeral;
+    this.descricao = descricao;
+    this.mensagemGeral = mensagemGeral;
     this.documentos = documentos;
   }
 
@@ -46,16 +52,18 @@ export class ProtocoloHabilitacaoPjeSegundoPassoSolicitacao
       tipo_declaracao: this.tipoDeclaracao,
       polo: this.polo,
       tipo_documento_mensagem_geral: this.tipoDocumentoMensagemGeral,
+      descricao: this.descricao,
+      mensagem_geral: this.mensagemGeral,
     };
 
-    Helpers.definirPartes(this.partesVinculadas, parametrosParaMultiForm);
+    this.partesVinculadas.forEach((parte, indice) => {
+      parametrosParaMultiForm[`partes_vinculadas[${indice}]`] =
+        parte instanceof ParteVinculada ? parte.getNome() : parte;
+    });
+
     Helpers.definirDocumentos(this.documentos, parametrosParaMultiForm);
 
     return {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "Intimai_SDK/3.0.0",
-      },
       multipart: Helpers.definirMultiPart(parametrosParaMultiForm),
     };
   }

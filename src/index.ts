@@ -2,7 +2,9 @@
 export { Intimai } from "./Intimai";
 
 // Exceções
-export { APIRequestException } from "./Exceptions/APIRequestException";
+export { APIRequestException, DoisFatoresException, LimiteDeRequisicoesException } from "./Exceptions/APIRequestException";
+export { API } from "./API/API";
+export type { Codigo2fa, OpcoesAPI } from "./API/API";
 
 // Modelos
 export { Certificado } from "./Modelos/Certificado";
@@ -15,11 +17,18 @@ export { Acao } from "./Utilidades/Acao";
 export { Dia } from "./Utilidades/Dia";
 export { Horario } from "./Utilidades/Horario";
 export { Polo } from "./Utilidades/Polo";
+export { SituacaoCapturaAgendada } from "./Utilidades/SituacaoCapturaAgendada";
+export { SituacaoNovaTentativa } from "./Utilidades/SituacaoNovaTentativa";
+export { StatusAcao } from "./Utilidades/StatusAcao";
+export { TipoCapturaAgendada } from "./Utilidades/TipoCapturaAgendada";
 export { TipoDeclaracao } from "./Utilidades/TipoDeclaracao";
 export { TipoSolicitacao } from "./Utilidades/TipoSolicitacao";
 
 // Serviços — Solicitar
+export { AcaoCancelarConsultaSolicitacao } from "./Servicos/Solicitar/Acao/AcaoCancelarConsultaSolicitacao";
+export { AcaoConfirmarConsultaSolicitacao } from "./Servicos/Solicitar/Acao/AcaoConfirmarConsultaSolicitacao";
 export { AndamentoSolicitacao } from "./Servicos/Solicitar/Andamento/AndamentoSolicitacao";
+export { AutenticadorCapturarIntimacoesSolicitacao } from "./Servicos/Solicitar/Autenticador/AutenticadorCapturarIntimacoesSolicitacao";
 export { ConsultaSolicitacao } from "./Servicos/Solicitar/Consulta/ConsultaSolicitacao";
 export { ConsultaPreAnaliseSolicitacao } from "./Servicos/Solicitar/ConsultaPreAnalise/ConsultaPreAnaliseSolicitacao";
 export { CopiaSolicitacao } from "./Servicos/Solicitar/Copia/CopiaSolicitacao";
@@ -40,10 +49,13 @@ export { ProtocoloHabilitacaoPjeSegundoPassoSolicitacao } from "./Servicos/Solic
 export { AcaoBusca } from "./Servicos/Buscar/Acao/AcaoBusca";
 export { AndamentoBusca } from "./Servicos/Buscar/Andamento/AndamentoBusca";
 export { AutenticadorBusca } from "./Servicos/Buscar/Autenticador/AutenticadorBusca";
+export { CapturaAgendadaBusca } from "./Servicos/Buscar/CapturaAgendada/CapturaAgendadaBusca";
 export { CertificadoBusca } from "./Servicos/Buscar/Certificado/CertificadoBusca";
+export { CodigoAjudaBusca } from "./Servicos/Buscar/CodigoAjuda/CodigoAjudaBusca";
 export { ConsultaBusca } from "./Servicos/Buscar/Consulta/ConsultaBusca";
 export { ConsultaPreAnaliseBusca } from "./Servicos/Buscar/ConsultaPreAnalise/ConsultaPreAnaliseBusca";
 export { CopiaBusca } from "./Servicos/Buscar/Copia/CopiaBusca";
+export { CreditoConsumoMensalBusca } from "./Servicos/Buscar/Credito/CreditoConsumoMensalBusca";
 export { CreditoCotacaoBusca } from "./Servicos/Buscar/Credito/CreditoCotacaoBusca";
 export { CreditoHistoricoBusca } from "./Servicos/Buscar/Credito/CreditoHistoricoBusca";
 export { CreditoSaldoBusca } from "./Servicos/Buscar/Credito/CreditoSaldoBusca";
@@ -61,6 +73,7 @@ export { ClassesEsajBusca } from "./Servicos/Buscar/Protocolo/TipoDocumentoMensa
 export { ClassesTjrjBusca } from "./Servicos/Buscar/Protocolo/TipoDocumentoMensagemGeral/ClassesTjrjBusca";
 export { EventosEprocBusca } from "./Servicos/Buscar/Protocolo/TipoDocumentoMensagemGeral/EventosEprocBusca";
 export { TipoDocumentoMensagemGeralPjeBusca as ProtocoloTipoDocumentoMensagemGeralPjeBusca } from "./Servicos/Buscar/Protocolo/TipoDocumentoMensagemGeral/TipoDocumentoMensagemGeralPjeBusca";
+export { TipoDocumentoMensagemGeralProjudiBusca } from "./Servicos/Buscar/Protocolo/TipoDocumentoMensagemGeral/TipoDocumentoMensagemGeralProjudiBusca";
 export { ProtocoloHabilitacaoBusca } from "./Servicos/Buscar/ProtocoloHabilitacao/ProtocoloHabilitacaoBusca";
 export { TipoDocumentoPjeBusca as ProtocoloHabilitacaoTipoDocumentoPjeBusca } from "./Servicos/Buscar/ProtocoloHabilitacao/TipoDocumento/TipoDocumentoPjeBusca";
 export { TipoDocumentoMensagemGeralPjeBusca as ProtocoloHabilitacaoTipoDocumentoMensagemGeralPjeBusca } from "./Servicos/Buscar/ProtocoloHabilitacao/TipoDocumentoMensagemGeral/TipoDocumentoMensagemGeralPjeBusca";
@@ -68,6 +81,7 @@ export { TipoDocumentoMensagemGeralPjeBusca as ProtocoloHabilitacaoTipoDocumento
 // Serviços — Cadastrar
 export { AndamentoCadastro } from "./Servicos/Cadastrar/Andamento/AndamentoCadastro";
 export { AutenticadorCertificadoCadastro } from "./Servicos/Cadastrar/Autenticador/AutenticadorCertificadoCadastro";
+export { AutenticadorDoisFatoresCadastro } from "./Servicos/Cadastrar/Autenticador/AutenticadorDoisFatoresCadastro";
 export { AutenticadorRegularCadastro } from "./Servicos/Cadastrar/Autenticador/AutenticadorRegularCadastro";
 export { EscutaCadastro } from "./Servicos/Cadastrar/Escuta/EscutaCadastro";
 export { NotificacaoEmailCadastro } from "./Servicos/Cadastrar/Notificacao/NotificacaoEmailCadastro";
@@ -77,7 +91,11 @@ export { NotificacaoWebhookCadastro } from "./Servicos/Cadastrar/Notificacao/Not
 export { AutenticadorAlterarParaCertificadoAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorAlterarParaCertificadoAtualizacao";
 export { AutenticadorAlterarParaRegularAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorAlterarParaRegularAtualizacao";
 export { AutenticadorAtivarCapturaIntimacaoAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorAtivarCapturaIntimacaoAtualizacao";
+export { AutenticadorDesabilitarAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorDesabilitarAtualizacao";
 export { AutenticadorDesativarCapturaIntimacaoAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorDesativarCapturaIntimacaoAtualizacao";
+export { AutenticadorHabilitarAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorHabilitarAtualizacao";
+export { AutenticadorOabAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorOabAtualizacao";
+export { AutenticadorPerfilAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorPerfilAtualizacao";
 export { AutenticadorRegularAtualizacao } from "./Servicos/Atualizar/Autenticador/AutenticadorRegularAtualizacao";
 export { EscutaAtualizacao } from "./Servicos/Atualizar/Escuta/EscutaAtualizacao";
 export { IntimacaoMarcarComoRevisadaAtualizacao } from "./Servicos/Atualizar/Intimacao/IntimacaoMarcarComoRevisadaAtualizacao";
